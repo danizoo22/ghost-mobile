@@ -1,0 +1,167 @@
+import React from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Linking } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { useRouter } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+export default function TermsScreen() {
+  const router = useRouter();
+  const insets = useSafeAreaInsets();
+
+  const handleContact = () => {
+    // Reemplaza con tu email real
+   Linking.openURL('mailto:cs_real22@hotmail.com');
+  };
+
+  return (
+    <View style={styles.container}>
+      <LinearGradient colors={['#000000', '#1a0b2e', '#2e0249']} style={StyleSheet.absoluteFill} />
+
+      <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
+        <TouchableOpacity onPress={() => router.back()} style={styles.backBtn}>
+          <Ionicons name="arrow-back" size={26} color="#fff" />
+        </TouchableOpacity>
+        <Text style={styles.title}>Legal y Privacidad</Text>
+      </View>
+
+      <ScrollView contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + 40 }]}>
+        
+        <View style={styles.alertBox}>
+          <Ionicons name="alert-circle" size={20} color="#fbbf24" style={{marginRight: 8}} />
+          <Text style={styles.alertText}>
+            Importante: Al usar GHOST, aceptas que eres el único responsable de tus interacciones en el mundo real.
+          </Text>
+        </View>
+
+        <Text style={styles.h1}>1. Identificación del Titular</Text>
+        <Text style={styles.p}>
+          GHOST es una plataforma social. El servicio es operado por:
+          {'\n'}• Razón Social/Titular: Mari Prado
+          {'\n'}• Contacto: cs_real22@hotmail.com
+        </Text>
+
+        <Text style={styles.h1}>2. Edad y Elegibilidad</Text>
+        <Text style={styles.p}>
+          El uso de GHOST está estrictamente prohibido para menores de 18 años. Al usar la App, declaras y garantizas que tienes al menos 18 años.
+          Utilizamos mecanismos de verificación de edad, y cualquier cuenta sospechosa de pertenecer a un menor será eliminada permanentemente sin previo aviso.
+        </Text>
+
+        <Text style={styles.h1}>3. Exención de Responsabilidad en Encuentros (IMPORTANTE)</Text>
+        <Text style={styles.p}>
+          <Text style={{fontWeight: 'bold'}}>GHOST NO SE HACE RESPONSABLE DE LO QUE OCURRA FUERA DE LA APLICACIÓN.</Text>
+          {'\n\n'}
+          • No realizamos comprobaciones de antecedentes penales ni verificaciones de identidad forenses de los usuarios.
+          {'\n'}• Tú eres el único responsable de tus interacciones con otros usuarios.
+          {'\n'}• El Operador se exime de toda responsabilidad por cualquier daño (físico, emocional, financiero o de cualquier otro tipo) que resulte de encuentros, comunicaciones o reuniones con otros usuarios.
+          {'\n'}• Te instamos a tomar precauciones: queda en lugares públicos, informa a un amigo y no compartas información financiera.
+        </Text>
+
+        <Text style={styles.h1}>4. Salud y Seguridad</Text>
+        <Text style={styles.p}>
+          El Operador no ofrece consejo médico ni garantiza la salud sexual de los usuarios. Es tu responsabilidad protegerte y tomar decisiones informadas sobre tu salud.
+        </Text>
+
+        <Text style={styles.h1}>5. Reglas de Conducta y Tolerancia Cero</Text>
+        <Text style={styles.p}>
+          Para cumplir con las normativas de Google Play y Apple App Store, aplicamos una política de <Text style={{fontWeight: 'bold'}}>TOLERANCIA CERO</Text> frente a contenidos objetables. Está prohibido:
+          {'\n'}• Acoso, intimidación, difamación o discursos de odio.
+          {'\n'}• Contenido ilegal, pornografía infantil (se reportará a las autoridades) o violencia.
+          {'\n'}• Spam, estafas o solicitud comercial (venta de drogas, armas o servicios sexuales).
+          {'\n\n'}
+          El incumplimiento resultará en la <Text style={{fontWeight: 'bold', color: '#ef4444'}}>ELIMINACIÓN INMEDIATA</Text> de la cuenta sin derecho a reembolso.
+        </Text>
+
+        <Text style={styles.h1}>6. Geolocalización y Modo Viaje</Text>
+        <Text style={styles.p}>
+          La App utiliza tu ubicación para mostrar perfiles cercanos. Aunque nos esforzamos por la precisión, la tecnología GPS puede tener márgenes de error.
+          {'\n'}
+          Al usar funciones como "Ghost Wings" (Modo Viaje), aceptas que tu perfil sea visible en ubicaciones donde no te encuentras físicamente.
+        </Text>
+
+        <Text style={styles.h1}>7. Contenido del Usuario y Licencia</Text>
+        <Text style={styles.p}>
+          Tú conservas los derechos de tus fotos y textos, pero concedes a GHOST una licencia mundial y gratuita para alojar, mostrar y distribuir dicho contenido dentro de la plataforma.
+          {'\n'}
+          Garantizas que tienes derecho a usar las fotos que subes y que no infringen derechos de terceros (copyright o privacidad).
+        </Text>
+
+        <Text style={styles.h1}>8. Política de Privacidad Resumida</Text>
+        <Text style={styles.p}>
+          Respetamos tu privacidad. Tus datos se tratan así:
+          {'\n'}• <Text style={{fontWeight:'bold'}}>Datos:</Text> Recopilamos tu email, ubicación (si la autorizas), fotos y chats.
+          {'\n'}• <Text style={{fontWeight:'bold'}}>Uso:</Text> Para hacer funcionar el radar, el chat y la seguridad.
+          {'\n'}• <Text style={{fontWeight:'bold'}}>Compartir:</Text> No vendemos tus datos personales a terceros.
+          {'\n'}• <Text style={{fontWeight:'bold'}}>Borrado:</Text> Puedes eliminar tu cuenta y todos tus datos desde Ajustes - Seguridad - Eliminar Cuenta.
+        </Text>
+
+        <Text style={styles.h1}>9. Compras y Suscripciones (Si aplica)</Text>
+        <Text style={styles.p}>
+          Si adquieres funciones premium, estas están sujetas a los términos de pago de la tienda correspondiente (Google Play / App Store). No se ofrecen reembolsos por periodos no utilizados salvo que la ley local exija lo contrario.
+        </Text>
+
+        <Text style={styles.h1}>10. Modificaciones y Ley</Text>
+        <Text style={styles.p}>
+          Nos reservamos el derecho de modificar estos términos. El uso continuado implica aceptación. Se aplicará la legislación del país del Operador para cualquier disputa, renunciando a otros fueros si la ley lo permite.
+        </Text>
+
+        <View style={styles.footerBox}>
+          <Text style={styles.footerTitle}>¿Dudas o reportes?</Text>
+          <Text style={styles.footerText}>Si ves algo ilegal o tienes problemas, contáctanos.</Text>
+          <TouchableOpacity onPress={handleContact}>
+            <Text style={styles.link}>Contactar Soporte</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={{height: 50}} />
+      </ScrollView>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#000' },
+
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 15,
+    paddingBottom: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#1c1c1c',
+    backgroundColor: 'rgba(0,0,0,0.8)', // Fondo semi-transparente para el header
+  },
+  backBtn: { padding: 5, marginRight: 10 },
+  title: { color: '#fff', fontSize: 20, fontWeight: 'bold' },
+
+  content: { padding: 20 },
+
+  // Caja de alerta amarilla
+  alertBox: {
+    flexDirection: 'row',
+    backgroundColor: 'rgba(251, 191, 36, 0.1)',
+    borderColor: '#fbbf24',
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 15,
+    marginBottom: 20,
+    alignItems: 'center'
+  },
+  alertText: { color: '#fbbf24', fontSize: 12, flex: 1, fontWeight: '600' },
+
+  h1: { color: '#d946ef', fontSize: 18, fontWeight: 'bold', marginTop: 20, marginBottom: 10 },
+  p: { color: '#ccc', fontSize: 14, lineHeight: 22, marginBottom: 5 },
+
+  footerBox: {
+    marginTop: 40,
+    padding: 20,
+    borderRadius: 15,
+    backgroundColor: '#111',
+    borderWidth: 1,
+    borderColor: '#333',
+    alignItems: 'center'
+  },
+  footerTitle: { color: '#fff', fontWeight: 'bold', fontSize: 16, marginBottom: 5 },
+  footerText: { color: '#888', marginBottom: 10, fontSize: 13 },
+  link: { color: '#d946ef', fontWeight: 'bold', textDecorationLine: 'underline', marginTop: 5 },
+});
