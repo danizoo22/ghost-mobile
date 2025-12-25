@@ -5,14 +5,25 @@ import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+const APP_NAME = 'GHOST: Citas y Chat Gay';
+const DEVELOPER_NAME = 'Danisok'; // Debe coincidir con el nombre del developer en tu ficha de Google Play
+const OPERATOR_NAME = 'Mari Prado';
+
+const SUPPORT_EMAIL = 'cs_real22@hotmail.com';
+// Puedes usar el mismo, pero es CLAVE que esté etiquetado como "Child Safety point of contact"
+const CHILD_SAFETY_EMAIL = 'cs_real22@hotmail.com';
+
 export default function TermsScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
 
-  const handleContact = () => {
-    // Reemplaza con tu email real
-   Linking.openURL('mailto:cs_real22@hotmail.com');
+  const openMail = (email: string, subject?: string) => {
+    const s = subject ? `?subject=${encodeURIComponent(subject)}` : '';
+    Linking.openURL(`mailto:${email}${s}`);
   };
+
+  const handleContact = () => openMail(SUPPORT_EMAIL, `${APP_NAME} - Soporte`);
+  const handleChildSafety = () => openMail(CHILD_SAFETY_EMAIL, `${APP_NAME} - Child Safety / CSAE-CSAM`);
 
   return (
     <View style={styles.container}>
@@ -26,30 +37,55 @@ export default function TermsScreen() {
       </View>
 
       <ScrollView contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + 40 }]}>
-        
         <View style={styles.alertBox}>
-          <Ionicons name="alert-circle" size={20} color="#fbbf24" style={{marginRight: 8}} />
+          <Ionicons name="alert-circle" size={20} color="#fbbf24" style={{ marginRight: 8 }} />
           <Text style={styles.alertText}>
-            Importante: Al usar GHOST, aceptas que eres el único responsable de tus interacciones en el mundo real.
+            Importante: Al usar {APP_NAME}, aceptas que eres el único responsable de tus interacciones en el mundo real.
           </Text>
         </View>
 
         <Text style={styles.h1}>1. Identificación del Titular</Text>
         <Text style={styles.p}>
-          GHOST es una plataforma social. El servicio es operado por:
-          {'\n'}• Razón Social/Titular: Mari Prado
-          {'\n'}• Contacto: cs_real22@hotmail.com
+          {APP_NAME} es una plataforma social. El servicio es operado por:
+          {'\n'}• Razón Social/Titular: {OPERATOR_NAME}
+          {'\n'}• Desarrollador (Google Play): {DEVELOPER_NAME}
+          {'\n'}• Contacto Soporte: {SUPPORT_EMAIL}
+          {'\n'}• Contacto Seguridad Infantil (Child Safety): {CHILD_SAFETY_EMAIL}
         </Text>
 
         <Text style={styles.h1}>2. Edad y Elegibilidad</Text>
         <Text style={styles.p}>
-          El uso de GHOST está estrictamente prohibido para menores de 18 años. Al usar la App, declaras y garantizas que tienes al menos 18 años.
+          El uso de {APP_NAME} está estrictamente prohibido para menores de 18 años. Al usar la App, declaras y garantizas que tienes al menos 18 años.
+          {'\n\n'}
           Utilizamos mecanismos de verificación de edad, y cualquier cuenta sospechosa de pertenecer a un menor será eliminada permanentemente sin previo aviso.
+        </Text>
+
+        {/* ✅ AÑADIDO: Child Safety Standards (CSAE/CSAM + contacto + reportes in-app) */}
+        <Text style={styles.h1}>2.1. Estándares de Seguridad Infantil (Child Safety Standards)</Text>
+        <Text style={styles.p}>
+          En {APP_NAME} aplicamos una política de <Text style={{ fontWeight: 'bold' }}>Tolerancia Cero</Text> contra la explotación sexual infantil.
+          {'\n\n'}
+          • <Text style={{ fontWeight: 'bold' }}>CSAE</Text> (Child Sexual Abuse and Exploitation) está estrictamente prohibido. Esto incluye, entre otros:
+          {'\n'}  - Grooming, insinuaciones sexuales hacia menores o solicitud de contenido sexual a menores.
+          {'\n'}  - Cualquier conducta que sexualice, explote o ponga en peligro a un menor.
+          {'\n\n'}
+          • <Text style={{ fontWeight: 'bold' }}>CSAM</Text> (Child Sexual Abuse Material) está estrictamente prohibido. Está prohibido crear, poseer, solicitar, compartir o distribuir material de abuso sexual infantil.
+          {'\n\n'}
+          Medidas de aplicación:
+          {'\n'}• Eliminación del contenido, suspensión o <Text style={{ fontWeight: 'bold' }}>baneo permanente</Text> de la cuenta infractora.
+          {'\n'}• Revisión de reportes y acciones de moderación.
+          {'\n'}• Si se detecta o confirma CSAM/CSAE, podremos <Text style={{ fontWeight: 'bold' }}>reportar a las autoridades competentes</Text> de acuerdo con la ley aplicable.
+          {'\n\n'}
+          Mecanismos in-app de reporte:
+          {'\n'}• Los usuarios pueden enviar <Text style={{ fontWeight: 'bold' }}>reportes/feedback dentro de la app</Text> (por ejemplo, desde el perfil del usuario o desde el chat, mediante las opciones “Reportar” o “Bloquear”).
+          {'\n\n'}
+          Contacto específico de seguridad infantil:
+          {'\n'}• Para temas de seguridad infantil/CSAE/CSAM: <Text style={{ fontWeight: 'bold' }}>{CHILD_SAFETY_EMAIL}</Text>
         </Text>
 
         <Text style={styles.h1}>3. Exención de Responsabilidad en Encuentros (IMPORTANTE)</Text>
         <Text style={styles.p}>
-          <Text style={{fontWeight: 'bold'}}>GHOST NO SE HACE RESPONSABLE DE LO QUE OCURRA FUERA DE LA APLICACIÓN.</Text>
+          <Text style={{ fontWeight: 'bold' }}>GHOST NO SE HACE RESPONSABLE DE LO QUE OCURRA FUERA DE LA APLICACIÓN.</Text>
           {'\n\n'}
           • No realizamos comprobaciones de antecedentes penales ni verificaciones de identidad forenses de los usuarios.
           {'\n'}• Tú eres el único responsable de tus interacciones con otros usuarios.
@@ -64,12 +100,13 @@ export default function TermsScreen() {
 
         <Text style={styles.h1}>5. Reglas de Conducta y Tolerancia Cero</Text>
         <Text style={styles.p}>
-          Para cumplir con las normativas de Google Play y Apple App Store, aplicamos una política de <Text style={{fontWeight: 'bold'}}>TOLERANCIA CERO</Text> frente a contenidos objetables. Está prohibido:
+          Para cumplir con las normativas de Google Play y Apple App Store, aplicamos una política de <Text style={{ fontWeight: 'bold' }}>TOLERANCIA CERO</Text> frente a contenidos objetables. Está prohibido:
           {'\n'}• Acoso, intimidación, difamación o discursos de odio.
-          {'\n'}• Contenido ilegal, pornografía infantil (se reportará a las autoridades) o violencia.
+          {'\n'}• Contenido ilegal o violencia.
+          {'\n'}• Contenido o conducta relacionada con <Text style={{ fontWeight: 'bold' }}>CSAE/CSAM</Text> (se aplicará baneo y se podrá reportar a autoridades).
           {'\n'}• Spam, estafas o solicitud comercial (venta de drogas, armas o servicios sexuales).
           {'\n\n'}
-          El incumplimiento resultará en la <Text style={{fontWeight: 'bold', color: '#ef4444'}}>ELIMINACIÓN INMEDIATA</Text> de la cuenta sin derecho a reembolso.
+          El incumplimiento resultará en la <Text style={{ fontWeight: 'bold', color: '#ef4444' }}>ELIMINACIÓN INMEDIATA</Text> de la cuenta sin derecho a reembolso.
         </Text>
 
         <Text style={styles.h1}>6. Geolocalización y Modo Viaje</Text>
@@ -81,7 +118,7 @@ export default function TermsScreen() {
 
         <Text style={styles.h1}>7. Contenido del Usuario y Licencia</Text>
         <Text style={styles.p}>
-          Tú conservas los derechos de tus fotos y textos, pero concedes a GHOST una licencia mundial y gratuita para alojar, mostrar y distribuir dicho contenido dentro de la plataforma.
+          Tú conservas los derechos de tus fotos y textos, pero concedes a {APP_NAME} una licencia mundial y gratuita para alojar, mostrar y distribuir dicho contenido dentro de la plataforma.
           {'\n'}
           Garantizas que tienes derecho a usar las fotos que subes y que no infringen derechos de terceros (copyright o privacidad).
         </Text>
@@ -89,10 +126,10 @@ export default function TermsScreen() {
         <Text style={styles.h1}>8. Política de Privacidad Resumida</Text>
         <Text style={styles.p}>
           Respetamos tu privacidad. Tus datos se tratan así:
-          {'\n'}• <Text style={{fontWeight:'bold'}}>Datos:</Text> Recopilamos tu email, ubicación (si la autorizas), fotos y chats.
-          {'\n'}• <Text style={{fontWeight:'bold'}}>Uso:</Text> Para hacer funcionar el radar, el chat y la seguridad.
-          {'\n'}• <Text style={{fontWeight:'bold'}}>Compartir:</Text> No vendemos tus datos personales a terceros.
-          {'\n'}• <Text style={{fontWeight:'bold'}}>Borrado:</Text> Puedes eliminar tu cuenta y todos tus datos desde Ajustes - Seguridad - Eliminar Cuenta.
+          {'\n'}• <Text style={{ fontWeight: 'bold' }}>Datos:</Text> Recopilamos tu email, ubicación (si la autorizas), fotos y chats.
+          {'\n'}• <Text style={{ fontWeight: 'bold' }}>Uso:</Text> Para hacer funcionar el radar, el chat y la seguridad.
+          {'\n'}• <Text style={{ fontWeight: 'bold' }}>Compartir:</Text> No vendemos tus datos personales a terceros.
+          {'\n'}• <Text style={{ fontWeight: 'bold' }}>Borrado:</Text> Puedes eliminar tu cuenta y todos tus datos desde Ajustes - Seguridad - Eliminar Cuenta.
         </Text>
 
         <Text style={styles.h1}>9. Compras y Suscripciones (Si aplica)</Text>
@@ -107,13 +144,22 @@ export default function TermsScreen() {
 
         <View style={styles.footerBox}>
           <Text style={styles.footerTitle}>¿Dudas o reportes?</Text>
-          <Text style={styles.footerText}>Si ves algo ilegal o tienes problemas, contáctanos.</Text>
+          <Text style={styles.footerText}>
+            Si ves algo ilegal (incluido CSAE/CSAM) o tienes problemas, repórtalo dentro de la app (Reportar/Bloquear) y/o contáctanos.
+          </Text>
+
           <TouchableOpacity onPress={handleContact}>
             <Text style={styles.link}>Contactar Soporte</Text>
           </TouchableOpacity>
+
+          <TouchableOpacity onPress={handleChildSafety} style={{ marginTop: 10 }}>
+            <Text style={[styles.link, { color: '#fbbf24' }]}>
+              Contacto Seguridad Infantil (CSAE/CSAM)
+            </Text>
+          </TouchableOpacity>
         </View>
 
-        <View style={{height: 50}} />
+        <View style={{ height: 50 }} />
       </ScrollView>
     </View>
   );
@@ -129,14 +175,13 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
     borderBottomWidth: 1,
     borderBottomColor: '#1c1c1c',
-    backgroundColor: 'rgba(0,0,0,0.8)', // Fondo semi-transparente para el header
+    backgroundColor: 'rgba(0,0,0,0.8)',
   },
   backBtn: { padding: 5, marginRight: 10 },
   title: { color: '#fff', fontSize: 20, fontWeight: 'bold' },
 
   content: { padding: 20 },
 
-  // Caja de alerta amarilla
   alertBox: {
     flexDirection: 'row',
     backgroundColor: 'rgba(251, 191, 36, 0.1)',
@@ -162,6 +207,6 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   footerTitle: { color: '#fff', fontWeight: 'bold', fontSize: 16, marginBottom: 5 },
-  footerText: { color: '#888', marginBottom: 10, fontSize: 13 },
+  footerText: { color: '#888', marginBottom: 10, fontSize: 13, textAlign: 'center' },
   link: { color: '#d946ef', fontWeight: 'bold', textDecorationLine: 'underline', marginTop: 5 },
 });
